@@ -1,7 +1,8 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-// import { SearchInput } from "./search-input";
+import { SearchInput } from "./search-input";
+import { AuthButton } from "@/modules/auth/ui/components/auth-button";
 
 export const HomeNavbar = () => {
     return ( 
@@ -19,8 +20,11 @@ export const HomeNavbar = () => {
                 </div>
                 {/*Search bar */}
                 <div className="flex-1 flex justify-center max-w-[720px] mx-auto">
-                    {/* <SearchInput /> */}
+                    <SearchInput />
 
+                </div>
+                <div className="flex-shrink-0 items-center flex gap-4">
+                    <AuthButton />
                 </div>
            </div>
         </nav>

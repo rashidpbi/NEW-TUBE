@@ -1,6 +1,8 @@
 
 export default function Home() {
   return (
-    <div></div>
+    <div>
+     i will post videos like these
+    </div>
   );
 }
