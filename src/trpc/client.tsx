@@ -6,6 +6,7 @@ import { httpBatchLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { useState } from 'react';
 import { makeQueryClient } from './query-client';
+import superjson from 'superjson'
 import type { AppRouter } from './routers/_app';
 export const trpc = createTRPCReact<AppRouter>();
 let clientQueryClientSingleton: QueryClient;
@@ -23,7 +24,7 @@ function getUrl() {
     //todo: modify for outside-vercel deployment
     if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
     return 'http://localhost:3000';
-  })();
+  })(); 
   return `${base}/api/trpc`;
 }
 export function TRPCProvider(
@@ -40,8 +41,13 @@ export function TRPCProvider(
     trpc.createClient({
       links: [
         httpBatchLink({
-          // transformer: superjson, <-- if you use a data transformer
+          transformer: superjson,
           url: getUrl(),
+          async headers(){
+            const headers = new Headers()
+            headers.set("x-trpc-source","nextjs-react")
+            return headers
+          }
         }),
       ],
     }),
@@ -54,3 +60,4 @@ export function TRPCProvider(
     </trpc.Provider>
   );
 }
+

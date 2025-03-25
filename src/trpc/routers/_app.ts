@@ -1,19 +1,21 @@
-import {z} from 'zod'
-import { baseProcedure,createTRPCRouter } from "../init"
-import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import { protectedProcedure, createTRPCRouter } from "../init";
+// import { TRPCError } from "@trpc/server";
 
 export const appRouter = createTRPCRouter({
-    hello : baseProcedure.input(
-        z.object({
-            text: z.string(),
-        }),
+  hello: protectedProcedure
+    .input(
+      z.object({
+        text: z.string(),
+      })
     )
-    .query((opts)=>{
-        throw new TRPCError({code:"BAD_REQUEST"})
-        return {
-            greeting: ` hello ${opts.input.text}`,
-        };
+    .query((opts) => {
+      // throw new TRPCError({code:"BAD_REQUEST"})
+      console.log("db user",opts.ctx.user)
+      return {
+        greeting: ` hello ${opts.input.text}`,
+      };
     }),
-})
+});
 
 export type AppRouter = typeof appRouter;
