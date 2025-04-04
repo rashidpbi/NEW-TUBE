@@ -3,7 +3,7 @@
 import { trpc } from "@/trpc/client";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
-import { FilterCarousel } from "@/modules/home/ui/components/filter-carousel";
+import { FilterCarousel } from "@/components/filter-carousel";
 import { useRouter } from "next/navigation";
 
 interface CategoriesSectionProps {
